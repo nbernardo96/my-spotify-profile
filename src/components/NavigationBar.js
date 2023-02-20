@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -16,8 +17,18 @@ const settings = ['Logout'];
 export const NavigationBar = (props) => {
   const token = props.token
   const logout = props.logout
+  const user = props.user
   
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [userProfileImage, setUserProfileImage] = useState(null);
+
+  useEffect(() => {
+    if (user) {
+      setUsername(user.id)
+      setUserProfileImage(user.images[0].url)
+    }
+  }, [user])
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -30,6 +41,8 @@ export const NavigationBar = (props) => {
   const handleMenuItemClick = (action) => {
     if (action === 'Logout') {
       logout()
+      setUsername(null)
+      setUserProfileImage(null)
     }
   }
 
@@ -42,15 +55,20 @@ export const NavigationBar = (props) => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            { token ?
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-            :
-              null 
-            }
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Typography variant="h5" gutterBottom component="div" sx={{ p: 2, pb: 0, fontSize: 22 }}>
+                {username}
+              </Typography>
+              { token ?
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt="Profile Picture" src={userProfileImage ? userProfileImage : null} />
+                  </IconButton>
+                </Tooltip>
+              :
+                null 
+              }
+            </Box>
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
