@@ -5,11 +5,13 @@ import { AlbumCovers } from './AlbumCovers';
 
 import Box from '@mui/material/Box';
 
-export const Dashboard = () => {
-    return (
-      <Box>
-        <LyricQuote />
-        <AlbumCovers />
-      </Box>
-    );
-  }
+export const Dashboard = props => {
+  const topTracks = props.topTracks;
+
+  return (
+    <Box>
+      <LyricQuote />
+      <AlbumCovers />
+    </Box>
+  );
+}

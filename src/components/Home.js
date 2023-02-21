@@ -7,6 +7,7 @@ import { NavigationBar } from "./NavigationBar";
 
 import Box from '@mui/material/Box';
 import { Link } from "@mui/material";
+import Typography from '@mui/material/Typography';
 
 export const Home = () => {
   const SPOTIFY_CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID
@@ -79,9 +80,12 @@ export const Home = () => {
       <NavigationBar token={token} logout={logout} user={user} />
         <Box sx={{ height: '100vh' }}> 
           { token ?
-            <Dashboard />
+            <Dashboard topTracks={topTracks} />
           :
-            <Box sx={{ display: 'flex', justifyContent: 'center', height: '75%', alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', flexDirection:'column', justifyContent: 'center', height: '75%', alignItems: 'center' }}>
+              <Typography variant="h2" gutterBottom>
+                MySpotifyProfile
+              </Typography>
               <Link 
                 href={loginURL} 
                 underline="none" 
