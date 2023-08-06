@@ -25,7 +25,7 @@ export const NavigationBar = (props) => {
 
   useEffect(() => {
     if (user) {
-      setUsername(user.id)
+      setUsername(user.display_name)
       setUserProfileImage(user.images[0].url)
     }
   }, [user])

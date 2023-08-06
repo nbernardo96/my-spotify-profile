@@ -51,12 +51,17 @@ export const Home = () => {
             },
         }).then((res) => {
           setUser(res.data)
+        }).catch((err) => {
+          if (err.response.status === 401) {
+            logout()
+          }
         })
       }
 
       const getTopTracks = () => {
         const params = {
-          limit: 10
+          limit: 10,
+          time_range: 'medium_term'
         }
 
         axios.get('https://api.spotify.com/v1/me/top/tracks', {
@@ -67,6 +72,8 @@ export const Home = () => {
             params: params
         }).then((res) => {
           setTopTracks([...res.data.items])
+        }).catch((err) => {
+          logout()
         })
       }
 

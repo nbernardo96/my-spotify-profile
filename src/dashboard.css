@@ -1,0 +1,9 @@
+/* LYRICS COMPONENT */
+.refreshLyricsButton:disabled {
+  color: #d8d8d88a !important;
+}
+
+.refreshLyricsButton:hover {
+  background: #d8d8d88a !important;
+  padding: 5px;
+}
